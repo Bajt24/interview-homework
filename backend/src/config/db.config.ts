@@ -4,8 +4,7 @@ export const DbConfig = new DataSource({
   type: 'sqlite',
   database: 'warehouse.sqlite',
   entities: [__dirname + '/**/**.entity.js'],
-  synchronize: process.env.NODE_ENV === 'development',
-  logging: process.env.NODE_ENV === 'development',
+  synchronize: true, // WARN: definitely not safe for production, but for local development it will do
   extra: {
     foreignKeys: true,
   },
