@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
-import { ItemDto, UpdateItemDto } from './dtos/item.dto';
+import { CreateItemDto, UpdateItemDto } from './dtos/Item.dto';
 import { ItemsService } from './items.service';
 
 @Controller('items')
@@ -7,7 +7,7 @@ export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}
 
   @Post()
-  async create(@Body() createItemDto: ItemDto) {
+  async create(@Body() createItemDto: CreateItemDto) {
     return this.itemsService.create(createItemDto);
   }
 

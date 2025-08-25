@@ -9,10 +9,10 @@ export class Item {
   name: string;
 
   @Column({ nullable: true })
-  imageUrl: string;
+  imageUrl?: string;
 
   @Column({ nullable: true})
-  description: string;
+  description?: string;
 
   @Column({ type: 'int', default: 0 })
   quantity: number;

@@ -2,7 +2,7 @@ import { IsInt, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, IsUrl, M
 import { PartialType } from '@nestjs/mapped-types';
 import { Transform } from "class-transformer";
 
-export class ItemDto {
+export class CreateItemDto {
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -13,7 +13,7 @@ export class ItemDto {
 
   @IsOptional()
   @IsUrl()
-  imageUrl: string;
+  imageUrl?: string;
 
   @IsOptional()
   @IsInt()
@@ -26,4 +26,4 @@ export class ItemDto {
   unitPrice: number;
 }
 
-export class UpdateItemDto extends PartialType(ItemDto) {}
+export class UpdateItemDto extends PartialType(CreateItemDto) {}
