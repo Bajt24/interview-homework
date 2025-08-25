@@ -98,4 +98,10 @@ export class ItemsStateService {
       finalize(() => this.updateState({ loading: false }))
     );
   }
+
+  public itemByIdSelector(id: number) {
+    return this.items$.pipe(
+      map(items => items.find(item => item.id === id))
+    );
+  }
 }

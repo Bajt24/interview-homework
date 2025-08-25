@@ -8,5 +8,7 @@
   </div>
   <span>{{ item.quantity }}x</span>
   <span>{{ item.unitPrice | currency:'EUR' }}</span>
-  <app-button text="Add to shipment"></app-button>
+  <app-button text="Add to shipment" icon="add_shopping_cart"></app-button>
+  <app-button text="Edit" icon="edit" (click)="onItemEdit.emit(item.id)"></app-button>
+  <app-button text="Delete" icon="delete"></app-button>
 </div>

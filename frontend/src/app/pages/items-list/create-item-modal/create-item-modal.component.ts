@@ -1,9 +1,9 @@
-import { Component, OnDestroy } from '@angular/core';
-import { DialogRef } from '@angular/cdk/dialog';
+import { Component, Inject, OnDestroy } from '@angular/core';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { ItemsStateService } from '../../../core/states/items-state.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { CreateWarehouseItemDto } from '../../../core/models/warehouse-item.interface';
+import { CreateWarehouseItemDto, WarehouseItem } from '../../../core/models/warehouse-item.interface';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -25,7 +25,7 @@ export class ItemCreateModalComponent implements OnDestroy {
   public itemForm = this.fb.group({
     name: ['', Validators.required],
     quantity: [0],
-    unitPrice: [null, [Validators.required, Validators.min(0.01)]],
+    unitPrice: [0, [Validators.required, Validators.min(0.01)]],
     description: [''],
     imageUrl: ['']
   });
@@ -34,7 +34,12 @@ export class ItemCreateModalComponent implements OnDestroy {
     private dialogRef: DialogRef<ItemCreateModalComponent>,
     private state: ItemsStateService,
     private fb: FormBuilder,
+    @Inject(DIALOG_DATA) public editedItem: WarehouseItem
   ) {
+    if (!this.editedItem) {
+      return;
+    }
+    this.itemForm.patchValue(editedItem);
   }
 
   public ngOnDestroy(): void {
@@ -49,8 +54,12 @@ export class ItemCreateModalComponent implements OnDestroy {
     const formValues = this.itemForm.value;
     const newItem: CreateWarehouseItemDto = this.removeNullValues(formValues) as unknown as CreateWarehouseItemDto;
 
-    this.state.createItem(newItem).pipe(
-      takeUntil(this.destroy$),
+    const operation$ = this.editedItem
+      ? this.state.updateItem(this.editedItem.id, newItem)
+      : this.state.createItem(newItem);
+
+    operation$.pipe(
+      takeUntil(this.destroy$)
     ).subscribe({
       next: () => {
         this.dialogRef.close();

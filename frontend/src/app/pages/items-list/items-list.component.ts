@@ -5,6 +5,7 @@ import { ItemsStateService } from '../../core/states/items-state.service';
 import { Dialog } from '@angular/cdk/dialog';
 import { ItemCreateModalComponent } from './create-item-modal/create-item-modal.component';
 import { ButtonComponent } from '../../shared/button/button.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-items-list',
@@ -19,12 +20,13 @@ export class ItemsListComponent {
   constructor(private state: ItemsStateService, private dialog: Dialog) {
   }
 
-  public openEditDialog(id?: number) {
-    this.dialog.open(ItemCreateModalComponent, {
-      width: '500px',
-      hasBackdrop: true,
-      disableClose: false,
-      data: {id},
-    });
+  public openCreateDialog() {
+    this.dialog.open(ItemCreateModalComponent);
+  }
+
+  public openEditDialog(id: number) {
+    this.state.itemByIdSelector(id).pipe(take(1)).subscribe(val => {
+      this.dialog.open(ItemCreateModalComponent, {data: val});
+    })
   }
 }

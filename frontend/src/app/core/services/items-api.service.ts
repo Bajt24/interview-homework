@@ -16,7 +16,7 @@ export class ItemsApiService {
   }
 
   public update(id: number, item: UpdateWarehouseItemDto): Observable<WarehouseItem> {
-    return this.http.put<WarehouseItem>(`/items/${id}`, item);
+    return this.http.patch<WarehouseItem>(`/items/${id}`, item);
   }
 
   public delete(id: number): Observable<void> {

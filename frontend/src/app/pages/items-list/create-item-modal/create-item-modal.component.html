@@ -1,6 +1,6 @@
 <div class="modal__container">
   <div class="modal__header">
-    <h2 class="modal__title">Create new item</h2>
+    <h2 class="modal__title">{{ editedItem ? 'Edit item' : 'Create new item' }}</h2>
     <button class="close-button" (click)="onCancel()" type="button">
       ×
     </button>
@@ -78,7 +78,7 @@
       [disabled]="itemForm.invalid || (loading$ | async)"
       (click)="onSubmit()"
       type="button">
-      Create
+      {{ editedItem ? 'Edit item' : 'Create item' }}
     </button>
   </div>
 </div>

@@ -12,6 +12,7 @@ import { ButtonComponent } from '../../../shared/button/button.component';
 })
 export class ListItemComponent {
   @Input() item: WarehouseItem
+  @Output() onItemEdit = new EventEmitter<number>();
 
   constructor() { }
 }
