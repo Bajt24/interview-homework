@@ -1,0 +1,84 @@
+<div class="modal__container">
+  <div class="modal__header">
+    <h2 class="modal__title">Create new item</h2>
+    <button class="close-button" (click)="onCancel()" type="button">
+      ×
+    </button>
+  </div>
+
+  <div class="modal__body">
+    <div class="alert" *ngIf="error$ | async as error" [innerHTML]="error">
+    </div>
+
+    <form [formGroup]="itemForm" class="form__container">
+      <div class="form__group">
+        <label for="name" class="form__label">Item name *</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          placeholder="Enter item name"
+          class="form__input">
+        <div class="form__error" *ngIf="itemForm.get('name')?.invalid && itemForm.get('name')?.touched">
+          Item name is required
+        </div>
+      </div>
+
+      <div class="form__row">
+        <div class="form__group form__group--half-width">
+          <label for="quantity" class="form__label">Quantity</label>
+          <input
+            id="quantity"
+            type="number"
+            formControlName="quantity"
+            placeholder="0"
+            class="form__input">
+        </div>
+
+        <div class="form__group form__group--half-width">
+          <label for="unitPrice" class="form__label">Unit price *</label>
+          <input
+            id="unitPrice"
+            type="number"
+            step="0.01"
+            formControlName="unitPrice"
+            placeholder="0.00"
+            class="form__input">
+          <div class="form__error" *ngIf="itemForm.get('unitPrice')?.invalid && itemForm.get('unitPrice')?.touched">
+            <span *ngIf="itemForm.get('unitPrice')?.hasError('required')">Unit price is required</span>
+            <span *ngIf="itemForm.get('unitPrice')?.hasError('min')">Unit price must be positive</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form__group">
+        <label for="imageUrl" class="form__label">Image URL</label>
+        <input
+          id="imageUrl"
+          type="url"
+          formControlName="imageUrl"
+          placeholder="https://example.com/image.jpg"
+          class="form__input">
+      </div>
+
+      <div class="form__group">
+        <label for="description" class="form__label">Description</label>
+        <input
+          id="description"
+          formControlName="description"
+          placeholder="Enter item description"
+          class="form__input">
+      </div>
+    </form>
+  </div>
+
+  <div class="modal__footer">
+    <button
+      class="btn btn--primary"
+      [disabled]="itemForm.invalid || (loading$ | async)"
+      (click)="onSubmit()"
+      type="button">
+      Create
+    </button>
+  </div>
+</div>

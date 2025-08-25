@@ -26,11 +26,16 @@ import { NgIf } from '@angular/common';
       padding: 10px;
       display: flex;
       align-items: center;
+      gap: 4px;
+
+      &:hover {
+        transition: all 0.3s ease;
+        background: darkgrey;
+      }
     }
 
     .material-symbols-outlined {
       font-size: 20px;
-      margin-top: -2px;
     }
   `]
 })

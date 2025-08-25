@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { ItemsApiService } from './core/services/items-api.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiUrlInterceptor } from './core/interceptors/api-url.interceptor';
+import { DialogModule } from '@angular/cdk/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { ApiUrlInterceptor } from './core/interceptors/api-url.interceptor';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    DialogModule,
+    ReactiveFormsModule
   ],
   providers: [ItemsStateService, ItemsApiService,  {
     provide: HTTP_INTERCEPTORS,

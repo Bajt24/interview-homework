@@ -1,0 +1,141 @@
+.modal {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  &__container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    width: 500px;
+    max-width: 90vw;
+    max-height: 85vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header {
+    background-color: #010833;
+    color: white;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px 12px 0 0;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  &__body {
+    padding: 24px;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  &__footer {
+    padding: 20px 24px;
+    background-color: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-radius: 0 0 12px 12px;
+  }
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.form {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__row {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    &--half-width {
+      flex: 1;
+    }
+  }
+
+  &__label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #374151;
+  }
+
+  &__input {
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+
+    &:focus {
+      border-color: #010833;
+      box-shadow: 0 0 0 3px rgba(1, 8, 51, 0.1);
+    }
+  }
+
+  &__error {
+    color: #ef4444;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+}
+
+.btn {
+  cursor: pointer;
+  border: 0;
+  border-radius: 7px;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #010833;
+  color: white;
+
+  &:disabled {
+    cursor: not-allowed !important;
+    opacity: 0.6;
+  }
+}
+
+.alert {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
