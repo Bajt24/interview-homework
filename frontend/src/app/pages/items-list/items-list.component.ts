@@ -6,6 +6,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { ItemCreateModalComponent } from './create-item-modal/create-item-modal.component';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { take } from 'rxjs';
+import { WarehouseItem } from '../../core/models/warehouse-item.interface';
 
 @Component({
   selector: 'app-items-list',
@@ -28,5 +29,15 @@ export class ItemsListComponent {
     this.state.itemByIdSelector(id).pipe(take(1)).subscribe(val => {
       this.dialog.open(ItemCreateModalComponent, {data: val});
     })
+  }
+
+  public deleteItem(item: WarehouseItem) {
+    const confirmMessage = `Are you sure you want to delete "${item.name}"? This action cannot be undone.`;
+
+    if (confirm(confirmMessage)) {
+      this.state.deleteItem(item.id).pipe(
+        take(1)
+      ).subscribe();
+    }
   }
 }
