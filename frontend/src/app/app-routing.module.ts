@@ -1,6 +1,6 @@
 import { inject, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {ItemsListComponent} from "./pages/items-list/items-list.component";
+import { ItemsListComponent } from "./pages/items-list/items-list.component";
 import { ItemsStateService } from './core/states/items-state.service';
 import { catchError, of } from 'rxjs';
 import { ToastService } from './shared/services/toast.service';
@@ -16,36 +16,36 @@ const routes: Routes = [
   {
     path: 'items',
     component: ItemsListComponent,
-    resolve: {
-      data: ()=>{
+    canActivate: [
+      ()=>{
         const items = inject(ItemsStateService);
         const toast = inject(ToastService);
 
         return items.loadItems().pipe(
           catchError(err => {
             toast.showDanger('Failed to load items');
-            return of([]);
+            return of(false);
           })
         )
       }
-    }
+    ]
   },
   {
     path: 'shipments',
     component: ShipmentsListComponent,
-    resolve: {
-      data: ()=>{
+    canActivate: [
+      ()=>{
         const items = inject(ShipmentsStateService);
         const toast = inject(ToastService);
 
         return items.loadShipments().pipe(
           catchError(err => {
             toast.showDanger('Failed to load items');
-            return of([]);
+            return of(false);
           })
         )
       }
-    }
+    ]
   },
 ];
 

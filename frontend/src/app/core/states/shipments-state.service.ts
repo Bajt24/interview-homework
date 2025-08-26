@@ -33,7 +33,7 @@ export class ShipmentsStateService {
     return this.shipmentsApi.getAll().pipe(
       tap(shipments => this.updateState({ shipments } )),
       catchError(error => {
-        this.updateState({error: 'Unable to load items'})
+        this.updateState({error: 'Unable to load shipments'})
         return throwError(() => error);
       }),
       finalize(()=>this.updateState({ loading: false}))
@@ -49,7 +49,7 @@ export class ShipmentsStateService {
         this.updateState({ shipments: [...currentItems, newItem] });
       }),
       catchError(error => {
-        const errorMessage = error?.error?.message?.join("<br>") || 'Failed to create item';
+        const errorMessage = error?.error?.message?.join("<br>") || 'Failed to create shipment';
         this.updateState({ error: errorMessage});
         return throwError(() => errorMessage);
       }),
@@ -74,7 +74,7 @@ export class ShipmentsStateService {
         this.updateState({ shipments: filteredItems });
       }),
       catchError(error => {
-        const errorMessage = 'Failed to delete item'
+        const errorMessage = 'Failed to delete shipment'
         this.updateState({ error: errorMessage });
         return throwError(() => errorMessage);
       }),
