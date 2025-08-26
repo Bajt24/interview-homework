@@ -6,7 +6,7 @@
                  [item]="item"
                  (onItemEdit)="openEditDialog($event)"
                  (onItemDelete)="deleteItem($event)"
-                 (updateShipping)="updateShipping($event.id, $event.quantity)"
+                 (onUpdateShipping)="updateShipping($event.id, $event.quantity)"
   >
   </app-list-item>
 </div>
@@ -14,4 +14,5 @@
 <app-shipping-bottom-bar
   [totalItems]="totalItems$ | async"
   [totalPrice]="totalPrice$ | async"
+  (onShipItems)="createShipment()"
 ></app-shipping-bottom-bar>

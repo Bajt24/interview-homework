@@ -1,0 +1,7 @@
+<div class="items-list">
+  <app-shipment-list-item *ngFor="let shipment of shipments$ | async;"
+                 [item]="shipment"
+                 (onItemDelete)="deleteItem($event)"
+  >
+  </app-shipment-list-item>
+</div>

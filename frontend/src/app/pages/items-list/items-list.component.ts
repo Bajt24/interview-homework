@@ -5,10 +5,12 @@ import { ItemsStateService } from '../../core/states/items-state.service';
 import { Dialog } from '@angular/cdk/dialog';
 import { ItemCreateModalComponent } from './create-item-modal/create-item-modal.component';
 import { ButtonComponent } from '../../shared/button/button.component';
-import { BehaviorSubject, combineLatest, map, take } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, switchMap, take } from 'rxjs';
 import { WarehouseItem } from '../../core/models/warehouse-item.interface';
 import { ToastService } from '../../shared/services/toast.service';
 import { ShippingBottomBarComponent } from './shipping-bottom-bar/shipping-bottom-bar.component';
+import { ShipmentsStateService } from '../../core/states/shipments-state.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-items-list',
@@ -21,13 +23,13 @@ export class ItemsListComponent {
   public items$ = this.state.items$;
 
   private shippingSubject = new BehaviorSubject<Record<number, number>>({});
-  public shippingObservable = this.shippingSubject.asObservable();
+  public shipping$ = this.shippingSubject.asObservable();
 
-  public totalItems$ = this.shippingObservable.pipe(
+  public totalItems$ = this.shipping$.pipe(
     map(quantities => Object.values(quantities).reduce((sum, qty) => sum + qty, 0))
   );
 
-  public totalPrice$ = combineLatest([this.items$, this.shippingObservable]).pipe(
+  public totalPrice$ = combineLatest([this.items$, this.shipping$]).pipe(
     map(([items, quantities]) =>
       Object.entries(quantities).reduce((sum, [id, qty]) => {
         const item = items.find(i => i.id === +id);
@@ -36,7 +38,13 @@ export class ItemsListComponent {
     )
   );
 
-  constructor(private state: ItemsStateService, private dialog: Dialog, private toast: ToastService) {
+  constructor(
+    private state: ItemsStateService,
+    private dialog: Dialog,
+    private toast: ToastService,
+    private shipmentState: ShipmentsStateService,
+    private router: Router,
+  ) {
   }
 
   public updateShipping(itemId: number, quantity: number): void {
@@ -76,5 +84,24 @@ export class ItemsListComponent {
         }
       );
     }
+  }
+
+  public createShipment() {
+    this.shipping$.pipe(
+      take(1),
+      map(quantities =>
+        Object.entries(quantities)
+          .map(([id, quantity]) => ({ id: +id, quantity }))
+      ),
+      switchMap(items => this.shipmentState.createShipment({items}))
+    ).subscribe({
+      next: (createdShipment) => {
+        this.toast.showSuccess('Shipment created successfully!');
+        this.router.navigate(['/shipments']);
+      },
+      error: (error) => {
+        this.toast.showDanger(error);
+      }
+    })
   }
 }

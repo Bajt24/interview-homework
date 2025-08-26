@@ -15,7 +15,7 @@ export class ListItemComponent {
   @Input() item: WarehouseItem
   @Output() onItemEdit = new EventEmitter<number>();
   @Output() onItemDelete = new EventEmitter<WarehouseItem>();
-  @Output() updateShipping = new EventEmitter<{ id: number, quantity: number}>();
+  @Output() onUpdateShipping = new EventEmitter<{ id: number, quantity: number}>();
 
   public selectedQuantity = 0;
 
@@ -43,6 +43,6 @@ export class ListItemComponent {
   }
 
   public emitShippmentQuantity() {
-    this.updateShipping.emit({id: this.item.id, quantity: this.selectedQuantity});
+    this.onUpdateShipping.emit({id: this.item.id, quantity: this.selectedQuantity});
   }
 }
