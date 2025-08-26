@@ -5,7 +5,7 @@ import { NgIf } from '@angular/common';
   selector: 'app-button',
   standalone: true,
   template: `
-    <button>
+    <button [disabled]="disabled" [style.font-size.px]="size">
       <span *ngIf="icon" class="material-symbols-outlined">{{ icon }}</span>
       {{ text }}
     </button>
@@ -28,9 +28,13 @@ import { NgIf } from '@angular/common';
       align-items: center;
       gap: 4px;
 
-      &:hover {
+      &:hover:not([disabled]) {
         transition: all 0.3s ease;
         background: darkgrey;
+      }
+
+      &:disabled {
+        cursor: not-allowed !important;
       }
     }
 
@@ -42,4 +46,6 @@ import { NgIf } from '@angular/common';
 export class ButtonComponent {
   @Input() text: string;
   @Input() icon: string;
+  @Input() disabled = false;
+  @Input() size = 14;
 }

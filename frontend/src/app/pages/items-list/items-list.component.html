@@ -2,10 +2,11 @@
   <app-button text="Create item" icon="add" (click)="openCreateDialog()"></app-button>
 </div>
 <div class="items-list">
-  <app-list-item *ngFor="let item of items$ | async"
+  <app-list-item *ngFor="let item of items$ | async;"
                  [item]="item"
                  (onItemEdit)="openEditDialog($event)"
                  (onItemDelete)="deleteItem($event)"
+                 (updateShipping)="updateShipping($event.id, $event.quantity)"
   >
   </app-list-item>
 </div>

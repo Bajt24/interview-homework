@@ -17,6 +17,32 @@
       padding: 0 10px;
     }
 
+    input[type="number"] {
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      padding: 10px;
+      width: 40px;
+      text-align: center;
+      font-size: 14px;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: auto;
+        opacity: 1;
+      }
+
+      -moz-appearance: textfield;
+
+      &:focus {
+        outline: none;
+        border-color: #666;
+      }
+
+      &:hover {
+        border-color: #999;
+        transition: border-color 0.3s ease;
+      }
+    }
 
     &:hover {
       background: #f8f8f8;
