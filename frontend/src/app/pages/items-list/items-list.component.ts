@@ -7,6 +7,7 @@ import { ItemCreateModalComponent } from './create-item-modal/create-item-modal.
 import { ButtonComponent } from '../../shared/button/button.component';
 import { take } from 'rxjs';
 import { WarehouseItem } from '../../core/models/warehouse-item.interface';
+import { ToastService } from '../../shared/services/toast.service';
 
 @Component({
   selector: 'app-items-list',
@@ -18,7 +19,7 @@ import { WarehouseItem } from '../../core/models/warehouse-item.interface';
 export class ItemsListComponent {
   public items$ = this.state.items$;
 
-  constructor(private state: ItemsStateService, private dialog: Dialog) {
+  constructor(private state: ItemsStateService, private dialog: Dialog, private toast: ToastService) {
   }
 
   public openCreateDialog() {
@@ -37,7 +38,15 @@ export class ItemsListComponent {
     if (confirm(confirmMessage)) {
       this.state.deleteItem(item.id).pipe(
         take(1)
-      ).subscribe();
+      ).subscribe({
+          next: () => {
+            this.toast.showSuccess('Item deleted successfully.');
+          },
+          error: (err) => {
+            this.toast.showDanger(err);
+          }
+        }
+      );
     }
   }
 }

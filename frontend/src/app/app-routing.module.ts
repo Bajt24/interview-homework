@@ -2,6 +2,8 @@ import { inject, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {ItemsListComponent} from "./pages/items-list/items-list.component";
 import { ItemsStateService } from './core/states/items-state.service';
+import { catchError, of } from 'rxjs';
+import { ToastService } from './shared/services/toast.service';
 
 const routes: Routes = [
   {
@@ -10,7 +12,14 @@ const routes: Routes = [
     resolve: {
       data: ()=>{
         const items = inject(ItemsStateService);
-        return items.loadItems();
+        const toast = inject(ToastService);
+
+        return items.loadItems().pipe(
+          catchError(err => {
+            toast.showDanger('Failed to load items');
+            return of([]);
+          })
+        )
       }
     }
   }

@@ -1,0 +1,26 @@
+<div class="toast">
+  <div
+    *ngFor="let toast of toastService.toasts$ | async; trackBy: trackByToastId"
+    class="toast__item"
+    [class.toast__item--success]="toast.type === 'success'"
+    [class.toast__item--danger]="toast.type === 'danger'">
+
+    <div class="toast__content">
+      <div class="toast__icon">
+        <span *ngIf="toast.type === 'success'">✅</span>
+        <span *ngIf="toast.type === 'danger'">❌</span>
+      </div>
+
+      <div class="toast__message">
+        {{ toast.message }}
+      </div>
+
+      <button
+        class="toast__close"
+        (click)="closeToast(toast.id)"
+        aria-label="Close">
+        ×
+      </button>
+    </div>
+  </div>
+</div>

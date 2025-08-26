@@ -94,8 +94,9 @@ export class ItemsStateService {
         this.updateState({ items: filteredItems });
       }),
       catchError(error => {
-        this.updateState({ error: 'Failed to delete item' });
-        return throwError(() => error);
+        const errorMessage = 'Failed to delete item'
+        this.updateState({ error: errorMessage });
+        return throwError(() => errorMessage);
       }),
       finalize(() => this.updateState({ loading: false }))
     );

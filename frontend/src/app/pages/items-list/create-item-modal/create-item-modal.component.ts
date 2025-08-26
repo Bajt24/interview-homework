@@ -5,6 +5,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { CreateWarehouseItemDto, WarehouseItem } from '../../../core/models/warehouse-item.interface';
 import { Subject, takeUntil } from 'rxjs';
+import { ToastService } from '../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-create-item-modal',
@@ -35,7 +36,8 @@ export class ItemCreateModalComponent implements OnDestroy {
     private dialogRef: DialogRef<ItemCreateModalComponent>,
     private state: ItemsStateService,
     private fb: FormBuilder,
-    @Inject(DIALOG_DATA) public editedItem: WarehouseItem
+    @Inject(DIALOG_DATA) public editedItem: WarehouseItem,
+    private toast: ToastService
   ) {
     if (!this.editedItem) {
       return;
@@ -64,6 +66,7 @@ export class ItemCreateModalComponent implements OnDestroy {
     ).subscribe({
       next: () => {
         this.dialogRef.close();
+        this.toast.showSuccess(this.editedItem ? "Item updated successfuly": "Item created successfully.");
       }, error: (err) => {
         this.error = err;
       }
