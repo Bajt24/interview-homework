@@ -1,34 +1,73 @@
-# Interview Homework
+# Warehouse Interview Homework
 
-Congratulations on making it through our awesome Talent Acquisition Team! You seem like a great candidate to join our team. Before the next round of interviews, we’d like to see some of your coding skills in action.
+This project is my solution to the interview homework. The goal was to build a small **Warehouse application** with both backend and frontend functionality.
 
-## Backend
+---
+## Screens
+<p align="center">
+  <img src="./screens/screen1.png" width="720">
+  <img src="./screens/screen2.png" width="720">
+  <img src="./screens/screen3.png" width="720">
+</p>
 
-The `backend/` folder contains the generated structure of an Express application, along with instructions for the functional requirements inside its [README](./backend/README.md). Please showcase your skills by developing a REST API for a Warehouse application.
 
-## Frontend
+## Tech Choices
 
-The `frontend/` folder contains the generated structure of an Angular application, along with instructions for the functional requirements inside its [README](./frontend/README.md). Please showcase your skills by developing a client-facing application for the Warehouse.
+For the backend, I used NestJS, my go-to framework. Since it was also mentioned as a nice-to-have in the job description, I wanted to showcase my skills with it.
 
-## Fullstack
+The backend exposes a REST API under `/items` and `/shipment`, backed by **SQLite + TypeORM**. The database is automatically seeded with mock data on startup.
 
-If you applied for a fullstack position, complete the assessment tasks for listing, adding, editing, and removing products in both the backend and frontend.
+The frontend is built with **Angular** with **custom state management** solution that keeps one source of truth.
 
-In the end, we should be able to test the implemented functionality of the backend through the frontend. This means you should start both the backend and frontend locally and use the Warehouse application to ensure everything works seamlessly.
+I also prepared both **backend and frontend tests** to cover the main functionality.
 
-## Criteria
+---
 
-To be clear about what we’re looking for, , by sharing criterias, we are trying to help you prioritize your focus on what matters most for us.
+## Endpoints
 
-We will evaluate your work based on the following criteria:
+ `/items`:
 
-- **Code design and architecture** - Is the architecture of application clear? Does it use patterns that helps with maintainability and scalability?
-- **Code quality**: Is the code clean, well-structured, and easy to understand?
-- **Functionality**: Does the application work as expected?
-- **Performance**: Does the application run effiecently?
-- **Testing**: Are there unit and integration tests? Do they test the functionality?
-- **Documentation**: Are we able to run project following instructions in README? Is the code documented?
+- `GET /items` → Get all items
+- `GET /items/:id` → Get a single item by ID
+- `POST /items` → Create a new item
+- `PATCH /items/:id` → Update an existing item
+- `DELETE /items/:id` → Remove an item
 
-If time prioritization is necessary, criteria should not be sacrificed; rather, completeness should be.
+`/shipments`:
 
-Good luck, and we look forward to seeing your work!
+- `GET /shipments` → Get all shipments
+- `POST /shipments` → Create a new shipment
+- `DELETE /shipments/:id` → Remove a shipments
+---
+
+## Running the Project
+
+1. **Backend (NestJS API)**
+```
+cd backend
+npm i 
+npm run start
+```
+
+2. **Frontend (Angular)**
+```
+cd frontend
+npm i 
+ng serve
+```
+
+## Running tests
+
+1. **Backend (Jest)**
+```
+cd backend
+npm i 
+npm run test
+```
+
+2. **Frontend (Karma)**
+```
+cd frontend
+npm i 
+ng test
+```
