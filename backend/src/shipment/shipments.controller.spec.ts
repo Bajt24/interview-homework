@@ -1,8 +1,8 @@
 import { ShipmentItem } from './entities/shipment-item.entity';
 import { Shipment } from './entities/shipment.entity';
-import { ShipmentController } from './shipment.controller';
+import { ShipmentController } from './shipments.controller';
 
-import { ShipmentService } from './shipment.service';
+import { ShipmentsService } from './shipments.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreateShipmentDto } from './dtos/shipment.dto';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
@@ -57,7 +57,7 @@ const createShipmentsFixture = (): Shipment[] => [
 
 describe('ShipmentController', () => {
   let controller: ShipmentController;
-  let service: ShipmentService;
+  let service: ShipmentsService;
 
   const mockShipmentService = {
     create: jest.fn(),
@@ -70,14 +70,14 @@ describe('ShipmentController', () => {
       controllers: [ShipmentController],
       providers: [
         {
-          provide: ShipmentService,
+          provide: ShipmentsService,
           useValue: mockShipmentService,
         },
       ],
     }).compile();
 
     controller = module.get<ShipmentController>(ShipmentController);
-    service = module.get<ShipmentService>(ShipmentService);
+    service = module.get<ShipmentsService>(ShipmentsService);
   });
 
   afterEach(() => {

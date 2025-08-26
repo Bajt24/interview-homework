@@ -7,7 +7,7 @@ import { Item } from '../items/entities/item.entity';
 import { CreateShipmentDto } from './dtos/shipment.dto';
 
 @Injectable()
-export class ShipmentService {
+export class ShipmentsService {
   constructor(
     @InjectRepository(Shipment)
     private shipmentRepository: Repository<Shipment>,

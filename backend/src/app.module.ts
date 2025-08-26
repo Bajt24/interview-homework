@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ItemsModule } from './items/items.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DbConfig } from './config/db.config';
-import { ShipmentModule } from './shipment/shipment.module';
+import { ShipmentsModule } from './shipment/shipments.module';
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { ShipmentModule } from './shipment/shipment.module';
       autoLoadEntities: true,
     }),
     ItemsModule,
-    ShipmentModule
+    ShipmentsModule
   ],
 })
 export class AppModule {

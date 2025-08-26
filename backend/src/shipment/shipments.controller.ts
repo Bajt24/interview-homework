@@ -1,11 +1,11 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { CreateShipmentDto } from './dtos/shipment.dto';
 import { Shipment } from './entities/shipment.entity';
-import { ShipmentService } from './shipment.service';
+import { ShipmentsService } from './shipments.service';
 
-@Controller('shipment')
-export class ShipmentController {
-  constructor(private readonly shipmentService: ShipmentService) {}
+@Controller('shipments')
+export class ShipmentsController {
+  constructor(private readonly shipmentService: ShipmentsService) {}
 
   @Get()
   async findAll(): Promise<Shipment[]> {
