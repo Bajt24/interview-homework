@@ -10,3 +10,8 @@
   >
   </app-list-item>
 </div>
+
+<app-shipping-bottom-bar
+  [totalItems]="totalItems$ | async"
+  [totalPrice]="totalPrice$ | async"
+></app-shipping-bottom-bar>

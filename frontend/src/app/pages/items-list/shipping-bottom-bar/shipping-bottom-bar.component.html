@@ -1,0 +1,16 @@
+<div class="shipping-bottom-bar" *ngIf="totalItems">
+  <div class="content">
+    <div class="summary-info">
+      <div class="item-count">
+        <span class="label">Items:</span>
+        <span class="value">{{ totalItems }}</span>
+      </div>
+      <div class="total-amount">
+        <span class="label">Total:</span>
+        <span class="value">{{ totalPrice | currency: 'EUR' }}</span>
+      </div>
+    </div>
+
+    <app-button (click)="shipItems()" [size]="18" text="Create shippment!"></app-button>
+  </div>
+</div>
