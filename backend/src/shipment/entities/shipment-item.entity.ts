@@ -1,5 +1,4 @@
-import { Exclude } from "class-transformer";
-import { Item } from "src/items/entities/item.entity";
+import { Item } from "../../items/entities/item.entity";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Shipment } from "./shipment.entity";
 
@@ -10,8 +9,7 @@ export class ShipmentItem {
 
   @ManyToOne(() => Shipment, shipment => shipment.shipmentItems, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'shipmentId' })
-  @Exclude()
-  shipment: Shipment;
+  shipment?: Shipment;
 
   @Column()
   shipmentId: number;
