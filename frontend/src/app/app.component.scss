@@ -40,6 +40,12 @@ p {
   }
 }
 
+.toolbar .logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
 .toolbar img {
   margin: 0 16px;
 }

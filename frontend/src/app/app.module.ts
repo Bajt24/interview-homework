@@ -9,6 +9,8 @@ import { ApiUrlInterceptor } from './core/interceptors/api-url.interceptor';
 import { DialogModule } from '@angular/cdk/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastComponent } from './shared/components/toast/toast.component';
+import { ShipmentsApiService } from './core/services/shipments-api.service';
+import { ShipmentsStateService } from './core/states/shipments-state.service';
 
 @NgModule({
   declarations: [
@@ -22,11 +24,13 @@ import { ToastComponent } from './shared/components/toast/toast.component';
     ReactiveFormsModule,
     ToastComponent
   ],
-  providers: [ItemsStateService, ItemsApiService,  {
+  providers: [ItemsStateService, ItemsApiService, {
     provide: HTTP_INTERCEPTORS,
     useClass: ApiUrlInterceptor,
     multi: true,
-  }],
+  },
+    ShipmentsStateService, ShipmentsApiService,],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

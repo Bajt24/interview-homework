@@ -4,10 +4,17 @@ import {ItemsListComponent} from "./pages/items-list/items-list.component";
 import { ItemsStateService } from './core/states/items-state.service';
 import { catchError, of } from 'rxjs';
 import { ToastService } from './shared/services/toast.service';
+import { ShipmentsListComponent } from './pages/shipments-list/shipments-list.component';
+import { ShipmentsStateService } from './core/states/shipments-state.service';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 const routes: Routes = [
   {
     path: '',
+    component: WelcomeComponent
+  },
+  {
+    path: 'items',
     component: ItemsListComponent,
     resolve: {
       data: ()=>{
@@ -22,7 +29,24 @@ const routes: Routes = [
         )
       }
     }
-  }
+  },
+  {
+    path: 'shipments',
+    component: ShipmentsListComponent,
+    resolve: {
+      data: ()=>{
+        const items = inject(ShipmentsStateService);
+        const toast = inject(ToastService);
+
+        return items.loadShipments().pipe(
+          catchError(err => {
+            toast.showDanger('Failed to load items');
+            return of([]);
+          })
+        )
+      }
+    }
+  },
 ];
 
 @NgModule({
