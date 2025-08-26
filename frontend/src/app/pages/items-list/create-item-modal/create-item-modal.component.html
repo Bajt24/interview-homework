@@ -7,7 +7,7 @@
   </div>
 
   <div class="modal__body">
-    <div class="alert" *ngIf="error$ | async as error" [innerHTML]="error">
+    <div class="alert" *ngIf="error" [innerHTML]="error">
     </div>
 
     <form [formGroup]="itemForm" class="form__container">

@@ -19,8 +19,9 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class ItemCreateModalComponent implements OnDestroy {
   public loading$ = this.state.loading$;
-  public error$ = this.state.error$;
   private destroy$ = new Subject<void>();
+
+  public error: string | null = null;
 
   public itemForm = this.fb.group({
     name: ['', Validators.required],
@@ -63,6 +64,8 @@ export class ItemCreateModalComponent implements OnDestroy {
     ).subscribe({
       next: () => {
         this.dialogRef.close();
+      }, error: (err) => {
+        this.error = err;
       }
     });
   }

@@ -47,8 +47,9 @@ export class ItemsStateService {
         this.updateState({ items: [...currentItems, newItem] });
       }),
       catchError(error => {
-        this.updateState({ error: error?.error?.message?.join("<br>") || 'Failed to create item' });
-        return throwError(() => error);
+        const errorMessage = error?.error?.message?.join("<br>") || 'Failed to create item';
+        this.updateState({ error: errorMessage});
+        return throwError(() => errorMessage);
       }),
       finalize(() => this.updateState({ loading: false }))
     );
@@ -73,8 +74,9 @@ export class ItemsStateService {
         this.updateState({ items: updatedItems });
       }),
       catchError(error => {
-        this.updateState({ error: error?.error?.message?.join("<br>") || 'Failed to create item' });
-        return throwError(() => error);
+        const errorMessage = error?.error?.message || 'Failed to update item';
+        this.updateState({ error: errorMessage });
+        return throwError(() => errorMessage);
       }),
       finalize(() => this.updateState({ loading: false }))
     );
